@@ -104,6 +104,8 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     wideRoadCameraError @102;
     localizerMalfunction @103;
     highCpuUsage @105;
+    hightorqsteerUnavailable @ 106;
+
 
     driverMonitorLowAccDEPRECATED @68;
     radarCanErrorDEPRECATED @15;
@@ -150,6 +152,7 @@ struct CarState {
   # brake pedal, 0.0-1.0
   brake @5 :Float32;      # this is user pedal only
   brakePressed @6 :Bool;  # this is user pedal only
+  brakeLights @19 :Bool;
 
   # steering wheel
   steeringAngleDeg @7 :Float32;
@@ -164,6 +167,8 @@ struct CarState {
   stockAeb @30 :Bool;
   stockFcw @31 :Bool;
   espDisabled @32 :Bool;
+  hightorqUnavailable @38 :Bool;
+  accgasOverride @39 :Bool;
 
   # cruise state
   cruiseState @10 :CruiseState;
@@ -244,7 +249,6 @@ struct CarState {
   }
 
   errorsDEPRECATED @0 :List(CarEvent.EventName);
-  brakeLightsDEPRECATED @19 :Bool;
 }
 
 # ******* radar state @ 20hz *******
@@ -331,6 +335,8 @@ struct CarControl {
     leftLaneVisible @7: Bool;
     rightLaneDepart @8: Bool;
     leftLaneDepart @9: Bool;
+    leadDistance @10: Float32;
+    leadvRel @11: Float32
 
     enum VisualAlert {
       # these are the choices from the Honda
@@ -375,7 +381,8 @@ struct CarParams {
   enableDsu @5 :Bool;        # driving support unit
   enableApgs @6 :Bool;       # advanced parking guidance system
   enableBsm @56 :Bool;       # blind spot monitoring
-
+  enablehybridEcu @62 :Bool; #hydrid ecu
+  
   minEnableSpeed @7 :Float32;
   minSteerSpeed @8 :Float32;
   maxSteeringAngleDeg @54 :Float32;
